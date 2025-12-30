@@ -1,0 +1,71 @@
+body, html{
+    padding:0;
+    margin:0;
+}
+
+.wrapper{
+    background-color: pink;
+    width:100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    
+.calculator {
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap:10px;
+}
+
+.screen{
+    flex-basis: 100%;
+    display:flex;
+    background-color: aquamarine;
+    justify-content: space-around;
+}
+
+.input{
+    display:flex;
+    background-color: white;
+}
+
+.keyboard-1{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 50px 50px 50px 50px 50px;
+    gap:10px;
+    width:100%;
+    padding:10px;
+    background-color: white;
+}
+
+.keyboard-2{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 50px 50px 50px 50px 50px;
+    
+    gap:10px;
+    width:100%;
+    padding:10px;
+}
+
+.keyboard-2 > div{
+    background-color: darkgray;
+}
+.keyboard-1 > div{
+    background-color: darkgrey;
+}
+
+#angle-unit{
+    grid-row: span 1;
+    grid-column: span 2;
+}
+
+#ans {
+    grid-column: span 2;
+}
