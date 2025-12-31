@@ -5,16 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
     <link rel="stylesheet" href="css/styleindex.css">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-..."
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    />
 </head>
 <body>
     <div class="wrapper">
         <div class="calculator">
         <div class="screen">
             <div class="history">
-                <ul class="entire-history"></ul>
-                <div class="previous-op">0</div>
+                <span class="clock active"><i class="fa-regular fa-clock"></i></span>
+                <ul class="entire-history "></ul>
+                
             </div>
-            <div class="current-op"></div>
+            <div class="current-op active"></div>
         </div>
 
         <div class="input">
@@ -22,20 +30,20 @@
         <div class="swap" id="angle-unit"><span>DEG</span> | <span>RED</span></div>
         <div class="swap">Inv</div>
 
-        <div class="operator" data-op="factorial">x!</div>
+        <div class="operator" data-op="factorial">!</div>
         <div class="operator" data-op="sin">sin</div>
         <div class="operator" data-op="power">^</div>
 
-        <div class="const" data-const="PI">PI</div>
+        <div class="const" data-const="PI">π</div>
         <div class="operator" data-op="cos">cos</div>
         <div class="operator" data-op="log">log</div>
         
-        <div class="const" data-const="E">E</div>
+        <div class="const" data-const="E">e</div>
         <div class="operator" data-op="tan">tan</div>
-        <div class="operator" data-op="root">root</div>
+        <div class="operator" data-op="root">√(</div>
 
         <div class="number" id="Ans" data-const="Ans">Ans</div>
-        <div class="operator" data-op="mod">Mod</div>
+        <div class="operator" data-op="mod">mod</div>
     </div>
 
     <div class="keyboard-2">
@@ -47,12 +55,12 @@
         <div class="number">7</div>
         <div class="number">8</div>
         <div class="number">9</div>
-        <div class="operator" data-op="add">+</div>
+        <div class="operator" data-op="add">+</i></div>
 
         <div class="number">4</div>
         <div class="number">5</div>
         <div class="number">6</div>
-        <div class="operator" data-op="subtract">-</div>
+        <div class="operator" data-op="subtract">-</i></div>
 
         <div class="number">1</div>
         <div class="number">2</div>
@@ -61,8 +69,8 @@
 
         <div class="number">0</div>
         <div class="operator" data-op="dot">.</div>
-        <div class="control" id="equal">=</div>
-        <div class="operator" data-op="divide">:</div>
+        <div class="control" id="equal"><i class="fa-solid fa-equals"></i></div>
+        <div class="operator" data-op="divide">:</i></div>
     </div>
 </div>
 

@@ -1,16 +1,20 @@
 body, html{
     padding:0;
     margin:0;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .wrapper{
-    background-color: pink;
+    background: url('../assets/background.webp');
+    background-size: cover;
     width:100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
+
 
     
 .calculator {
@@ -20,34 +24,67 @@ body, html{
     justify-content: center;
     align-items: center;
     gap:10px;
+    width:50vw;
+    height:85vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    border:3px solid rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+    position: relative;
 }
 
 .screen{
     flex-basis: 100%;
-    display:flex;
-    background-color: aquamarine;
+    background-color: rgba(127, 255, 212, 0.85);
     justify-content: space-around;
+    position: absolute;
+    top:5%;
+    width:90%;
+    height:20%;
+    border-radius: 10px;
 }
 
+.history{
+    position: absolute;
+    left:5%;
+    top:10%;
+}
+
+.current-op.active{
+    position: absolute;
+    right:5%;
+    top:50%;
+    transform: translateY(-50%);
+    font-size: 2.5rem;
+    display:block;
+    max-width: 70%;
+}
+
+.current-op{
+    display:none;
+}
 .input{
     display:flex;
     background-color: white;
+    position: absolute;
+    bottom: 5%;
+    width:90%;
+    height:65%;
+    border-radius: 10px;
 }
 
 .keyboard-1{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 50px 50px 50px 50px 50px;
+    grid-template-columns: 2fr 2fr 2fr;
+    
     gap:10px;
     width:100%;
     padding:10px;
-    background-color: white;
 }
 
 .keyboard-2{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 50px 50px 50px 50px 50px;
+    grid-template-rows: 55px 55px 55px 55px 55px;
     
     gap:10px;
     width:100%;
@@ -56,16 +93,60 @@ body, html{
 
 .keyboard-2 > div{
     background-color: darkgray;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    font-size: 1.3rem;
+    border-radius: 10px;
 }
 .keyboard-1 > div{
     background-color: darkgrey;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    font-size: 1.3rem;
+    border-radius: 10px;
 }
+
 
 #angle-unit{
     grid-row: span 1;
     grid-column: span 2;
 }
 
-#ans {
+#Ans {
     grid-column: span 2;
+}
+
+.clock{
+    font-size: 30px;
+    display:none;
+}
+
+.entire-history{
+    display:none;
+    margin:0;
+    list-style: none;
+    flex-wrap: wrap;
+    flex-direction: column;
+    
+}
+
+.entire-history > li{
+    
+}
+.entire-history.active{
+    display:flex;
+    position: absolute;
+    top:10px;
+    left:0;
+    gap:1px;
+    letter-spacing: 1px;
+    
+}
+
+.clock.active{
+    display:block;
 }

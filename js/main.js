@@ -40,7 +40,7 @@ const operations = {
     power:      '^',
     factorial:  '!',
     percent:    '/100',
-    root:       'sqrt',
+    root:       'sqrt(',
     PI:  'pi()',
     E:  'e()',
     'paren-open':'(',
@@ -55,7 +55,7 @@ const operations = {
 
 
 var onInputBlock = document.querySelector('.current-op');
-var previousOpBlock = document.querySelector('.previous-op');
+
 var calculatorBlock = document.querySelector('.calculator');
 
 var inputForCalc = onInputBlock.textContent || '';
@@ -65,7 +65,10 @@ var clearFlag = false;
 
 calculatorBlock.addEventListener('click', (e)=>{
     e.stopPropagation();
-
+    if (clearFlag){
+        onInputBlock.textContent='';
+        clearFlag=false;
+    }
     var key = e.target; 
     
     if (key.classList.contains('number') ){
@@ -74,14 +77,14 @@ calculatorBlock.addEventListener('click', (e)=>{
        
     } else if (key.classList.contains('operator')  ){
         var keyOp = key.dataset.op;
-        onInputBlock.textContent += operations[keyOp] || key.textContent; 
+        onInputBlock.textContent +=  key.textContent; 
         inputForCalc += operations[keyOp] || key.textContent;
     } else if (key.classList.contains('const')){
         var keyConst = key.dataset.const;
-        onInputBlock.textContent += operations[keyConst] 
+        onInputBlock.textContent += key.textContent;
         inputForCalc += operations[keyConst]
     }
-    console.log(inputForCalc)
+    
 
 });
 
@@ -114,8 +117,7 @@ const supportKeys = {
     's':'sin',
     'c':'cos',
     't':'tan',
-    'e':'e()',
-    'p':'pi()',
+    
     'a':'Ans',
     '/':'/',
     '+':'+',
@@ -124,7 +126,8 @@ const supportKeys = {
     '(':'(',
     ')':')',
     '.':'.',
-    '%':'%',
+    'm':'%',
+    
 }
 
 document.addEventListener('keydown', (e) => {
@@ -189,3 +192,15 @@ var updateHistories = function(histories){
 }
 
 //can lam tiep phan displayhistories
+
+var clockIcon = document.querySelector('.clock');
+var ul = document.querySelector('.entire-history');
+var historyBlock = document.querySelector('.history');
+
+historyBlock.addEventListener('click',(e)=>{
+    e.stopPropagation();
+    clockIcon.classList.toggle('active');
+    ul.classList.toggle('active');
+    onInputBlock.classList.toggle('active');
+    
+})
