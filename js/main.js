@@ -59,7 +59,7 @@ var previousOpBlock = document.querySelector('.previous-op');
 var calculatorBlock = document.querySelector('.calculator');
 
 var inputForCalc = onInputBlock.textContent || '';
-var Ans;
+var Ans = 0;
 var clearFlag = false;
 
 
@@ -67,7 +67,7 @@ calculatorBlock.addEventListener('click', (e)=>{
     e.stopPropagation();
 
     var key = e.target; 
-   
+    
     if (key.classList.contains('number') ){
         onInputBlock.textContent += key.textContent;
         inputForCalc+=key.textContent;
@@ -93,7 +93,7 @@ equalSign.addEventListener('click', (e)=>{
     
     if (!isNaN(Number.parseFloat(result))){
         Ans = Number.parseFloat(result);
-        saveData(Number.parseFloat(result));
+        updateHistories(saveData(Number.parseFloat(result)));
     }
     onInputBlock.textContent = result;
     inputForCalc='';
@@ -124,13 +124,14 @@ const supportKeys = {
     '(':'(',
     ')':')',
     '.':'.',
+    '%':'%',
 }
 
 document.addEventListener('keydown', (e) => {
     if (clearFlag){
         onInputBlock.textContent='';
         clearFlag=false;
-    }
+}
     if (e.key >= '0' && e.key <= '9') {
         onInputBlock.textContent += e.key;
         inputForCalc += e.key;
@@ -142,7 +143,8 @@ document.addEventListener('keydown', (e) => {
         
         if (!isNaN(Number.parseFloat(result))){
             Ans = Number.parseFloat(result)
-            saveData(Number.parseFloat(result));
+            updateHistories(saveData(Number.parseFloat(result)));
+            
         };
         onInputBlock.textContent = result;
         inputForCalc = '';
@@ -170,13 +172,20 @@ var saveData = function(result){
     if (histories.length>4){
         histories.shift();
     }
-   
+    
     localStorage.setItem('histories', JSON.stringify(histories));
     return histories;
 }
 
-// var displayHistories = function(histories){
-//     histories.forEach(expression => )
-// }
+var updateHistories = function(histories){
+    var ul = document.querySelector('.entire-history');
+    ul.innerHTML='';
+    histories.forEach(expression => {
+        var li = document.createElement('li');
+        console.log(li);
+        li.textContent = expression.expression;
+        ul.appendChild(li);
+    })
+}
 
 //can lam tiep phan displayhistories
