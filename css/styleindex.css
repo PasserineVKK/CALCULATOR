@@ -138,13 +138,14 @@ body, html{
     
 }
 .entire-history.active{
-    display:flex;
+    display:block;
     position: absolute;
     top:10px;
     left:0;
-    gap:1px;
+    line-height: 1.2rem;
     letter-spacing: 1px;
-    
+    width:500px;
+    height:100px;
 }
 
 .clock.active{

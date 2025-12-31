@@ -202,5 +202,7 @@ historyBlock.addEventListener('click',(e)=>{
     clockIcon.classList.toggle('active');
     ul.classList.toggle('active');
     onInputBlock.classList.toggle('active');
+    var histories = JSON.parse(localStorage.getItem('histories') || '[]');
+    updateHistories(histories);
     
 })
