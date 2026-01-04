@@ -36,7 +36,7 @@ and a custom expression parsing engine (no use of `eval()`).
   - Rejects malformed expressions (e.g. `2abc+2`)
 - Input normalization:
   - Before evaluation, expressions are normalized into programming-frendly notation 
-        Example: 
+    - Example: 
            - `mod` → `%`
            - `:` → `/`
 - Calculation history (stored in LocalStorage)
