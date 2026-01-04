@@ -34,24 +34,33 @@ import { calculator } from "./calc.js";
 const operations = {
     add:        '+',
     subtract:   '-',
-    multiply:   '*',
-    divide:     '/',
-    mod:        '%',
+    multiply:   'x',
+    divide:     ':',
+    mod:        'mod',
     power:      '^',
     factorial:  '!',
-    percent:    '/100',
-    root:       'sqrt(',
-    PI:  'pi()',
-    E:  'e()',
+    percent:    '%',
+    root:       '√(',
+    PI:  'π',
+    E:  'e',
     'paren-open':'(',
     'paren-close':')',
     'dot': '.', 
-    // cos: 'cos(',
-    // log: 'log(',
-    // sin: 'sin(',
-    // tan: 'tan('
+    cos: 'cos(',
+    log: 'log(',
+    sin: 'sin(',
+    tan: 'tan('
 };
 
+var machineReadable = function(str){
+    return str.replace(/(π)/g, 'pi()')
+            .replace(/(e)/g, 'e()')
+            .replace(/x/g,'*')
+            .replace(/%/g, '/100')
+            .replace(/:/g,'\/')
+            .replace(/(mod)/g, '%')
+            .replace(/(√)/g,'sqrt');
+}
 
 
 var onInputBlock = document.querySelector('.current-op');
@@ -61,46 +70,69 @@ var calculatorBlock = document.querySelector('.calculator');
 var inputForCalc = onInputBlock.textContent || '';
 var Ans = 0;
 var clearFlag = false;
+var radFlag = false;
 
+
+function insertAtCaret(input, text) {
+    const start = input.selectionStart;
+    const end = input.selectionEnd;
+
+    input.value =
+        input.value.slice(0, start) +
+        text +
+        input.value.slice(end);
+
+    const newPos = start + text.length;
+    input.setSelectionRange(newPos, newPos);
+}
+
+document.addEventListener('mousedown',(e)=>{
+    e.stopPropagation();
+    onInputBlock.focus();
+})
 
 calculatorBlock.addEventListener('click', (e)=>{
     e.stopPropagation();
+
     if (clearFlag){
-        onInputBlock.textContent='';
-        clearFlag=false;
+        onInputBlock.value = '';
+        inputForCalc = '';
+        clearFlag = false;
     }
+
     var key = e.target; 
-    
-    if (key.classList.contains('number') ){
-        onInputBlock.textContent += key.textContent;
-        inputForCalc+=key.textContent;
-       
-    } else if (key.classList.contains('operator')  ){
+
+    if (key.classList.contains('number')){
+        insertAtCaret(onInputBlock, key.textContent);
+
+    } else if (key.classList.contains('operator')){
         var keyOp = key.dataset.op;
-        onInputBlock.textContent +=  key.textContent; 
-        inputForCalc += operations[keyOp] || key.textContent;
+        insertAtCaret(onInputBlock, operations[keyOp] || key.textContent);
+
     } else if (key.classList.contains('const')){
         var keyConst = key.dataset.const;
-        onInputBlock.textContent += key.textContent;
-        inputForCalc += operations[keyConst]
+        insertAtCaret(onInputBlock, operations[keyConst]);
     }
-    
 
+    inputForCalc = onInputBlock.value;
 });
+
 
 var equalSign = document.querySelector('#equal');
 equalSign.addEventListener('click', (e)=>{
-    e.stopPropagation();
-    
-    var result = calculator(inputForCalc, Ans);
-    
-    if (!isNaN(Number.parseFloat(result))){
-        Ans = Number.parseFloat(result);
-        updateHistories(saveData(Number.parseFloat(result)));
-    }
-    onInputBlock.textContent = result;
-    inputForCalc='';
-    clearFlag = true;
+         e.stopPropagation();
+        var input = onInputBlock.value;
+        const result = calculator(machineReadable(inputForCalc), Ans, radFlag);
+
+        if (!isNaN(Number.parseFloat(result))){
+            
+            Ans = Number.parseFloat(result);
+            updateHistories(saveData(input +' = ' +result));
+        }
+
+        onInputBlock.value = result;
+        inputForCalc = '';
+        clearFlag = true;
 });
 
 var ACSign = document.querySelector('#cancel-all');
@@ -108,7 +140,14 @@ ACSign.addEventListener('click',(e)=>{
     e.stopPropagation();
     Ans = 0;
     inputForCalc='';
-    onInputBlock.textContent='';
+    onInputBlock.value='';
+});
+
+var DESign = document.querySelector('#delete');
+DESign.addEventListener('click', () => {
+    onInputBlock.focus();
+    document.execCommand('delete');
+    inputForCalc = onInputBlock.value;
 });
 
 //keyboard support
@@ -142,40 +181,48 @@ document.addEventListener('keydown', (e) => {
     }
 
     if (e.key === 'Enter') {
-        const result = calculator(inputForCalc, Ans);
+        var input = onInputBlock.value;
         
+        const result = calculator(machineReadable(inputForCalc), Ans, radFlag);
+
         if (!isNaN(Number.parseFloat(result))){
-            Ans = Number.parseFloat(result)
-            updateHistories(saveData(Number.parseFloat(result)));
             
-        };
-        onInputBlock.textContent = result;
+            Ans = Number.parseFloat(result);
+            updateHistories(saveData(input +' = ' +result));
+        }
+
+        onInputBlock.value = result;
         inputForCalc = '';
         clearFlag = true;
+    }
 
-    }
     var key = e.key.toLowerCase();
-    if (supportKeys[key]){
-         onInputBlock.textContent += supportKeys[key];
-        inputForCalc += supportKeys[key];
+    if (supportKeys[key]) {
+        e.preventDefault();
+        insertAtCaret(onInputBlock, supportKeys[key]);
+        inputForCalc = onInputBlock.value;
     }
+
 
     if (e.key === 'Backspace'){
         e.preventDefault();
-         onInputBlock.textContent = onInputBlock.textContent.slice(0, -1);
-         inputForCalc = inputForCalc.slice(0, -1);
+        onInputBlock.focus();
+        document.execCommand('delete');
+        inputForCalc = onInputBlock.value;
     }
+
+    
 });
 
 var saveData = function(result){
     var histories = JSON.parse(localStorage.getItem('histories') || '[]');
     histories.push({
-        'expression': onInputBlock.textContent + '=' + result
+        'expression':   result
     });
     if (histories.length>4){
         histories.shift();
     }
-    
+    console.log(histories)
     localStorage.setItem('histories', JSON.stringify(histories));
     return histories;
 }
@@ -186,7 +233,13 @@ var updateHistories = function(histories){
     histories.forEach(expression => {
         var li = document.createElement('li');
         console.log(li);
-        li.textContent = expression.expression;
+        if (expression.expression.length > 30){
+            var ex = expression.expression;
+            ex = 'Result: '+ex.slice(ex.indexOf('=')+1, -1);
+            li.textContent=ex;
+        } else {
+            li.textContent=expression.expression;
+        }
         ul.appendChild(li);
     })
 }
@@ -205,4 +258,26 @@ historyBlock.addEventListener('click',(e)=>{
     var histories = JSON.parse(localStorage.getItem('histories') || '[]');
     updateHistories(histories);
     
+});
+
+var changeBlock = document.querySelector('.changeable-text');
+onInputBlock.addEventListener('click', (e)=>{
+    e.stopPropagation();
+    
+})
+
+var angleUnit = document.querySelector('#angle-unit');
+angleUnit.addEventListener('click', (e)=>{
+    e.stopPropagation();
+
+    var rad = document.querySelector('.rad');
+    var deg = document.querySelector('.deg');
+
+
+    rad.classList.toggle('active');
+    deg.classList.toggle('active');
+    radFlag = rad.classList.contains('active');
+    console.log(radFlag);
+
+
 })

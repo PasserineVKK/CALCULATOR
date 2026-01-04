@@ -3,14 +3,19 @@
  * @param {string} expression - Chuỗi biểu thức toán học.
  * @returns {Array<string>} Mảng các token.
  */
-function tokenize(expression, ans) {
+
+var rad=false;
+function tokenize(expression, ans, radFlag) {
+    //0/ validate:
+
+        
+    rad=radFlag;
+
     // 1. Loại bỏ khoảng trắng và chuẩn hóa ký hiệu (vd: thay 'x' bằng '*')
     const normalizedExpression = expression
-        .replace(/\s/g, '')
-        .replace(/x/g, '*')
-        .replace(/:/g, '/')
         .replace(/(\d)([a-zA-Z])/g, '$1*$2')
-        .replace(/(Ans)/g, Number.parseFloat(ans));
+        .replace(/(Ans)/g, Number.parseFloat(ans))
+        .replace(/\s/g,'');
     // Regex để tìm kiếm các loại token:
     // - Số (có thể là số thập phân)
     // - Hàm (sin, cos, log, etc. theo sau là dấu ngoặc mở)
@@ -27,7 +32,10 @@ function tokenize(expression, ans) {
         tokens.push(match[0]);
     }
     
-
+    if (tokens.join('')!==normalizedExpression){
+        throw new Error('Invalid');
+    }
+    
     // 3. Xử lý dấu trừ một ngôi (Unary Minus)
     // Phải xử lý đặc biệt vì '-' có thể là phép trừ hoặc dấu âm.
      // Nếu nó đứng đầu biểu thức, hoặc theo sau một toán tử/dấu ngoặc mở,
@@ -39,6 +47,7 @@ function tokenize(expression, ans) {
             }
         }
     }
+
 
     return tokens;
 
@@ -191,14 +200,26 @@ function evaluatePostfix(postfixTokens) {
                         })(operand);
                         break;
                     case 'sin':
-                        // Chuyển độ sang radian
-                        result = Math.sin(operand * Math.PI / 180); 
+                        if (rad){
+                            result = Math.sin(operand);
+                        } else {
+                            result = Math.sin(operand * Math.PI / 180); 
+                        }
+                        
                         break;
                     case 'cos':
-                        result = Math.cos(operand * Math.PI / 180);
+                         if (rad){
+                            result = Math.cos(operand);
+                        } else {
+                            result = Math.cos(operand * Math.PI / 180); 
+                        }
                         break;
                     case 'tan':
-                        result = Math.tan(operand * Math.PI / 180);
+                        if (rad){
+                            result = Math.tan(operand);
+                        } else {
+                            result = Math.tan(operand * Math.PI / 180); 
+                        }
                         break;
                     case 'log':
                         result = Math.log10(operand); // Log cơ số 10
@@ -259,9 +280,9 @@ console.log("\n--- BƯỚC 3: ĐÁNH GIÁ HẬU TỐ ---");
 console.log(`RPN Input: [${postfixTokens.join(', ')}]`);
 console.log(`Kết quả cuối cùng: ${finalResult}`);
 
-export function calculator(input, ans){
+export function calculator(input, ans, radFlag){
     try {
-        return evaluatePostfix(shuntingYard(tokenize(input, ans)));
+        return evaluatePostfix(shuntingYard(tokenize(input, ans, radFlag)));
     } catch (err) {
         return "ERROR!";
     }

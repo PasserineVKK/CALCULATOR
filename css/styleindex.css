@@ -49,15 +49,25 @@ body, html{
     top:10%;
 }
 
+.entire-history{
+    margin-bottom:50px;
+}
 .current-op.active{
     position: absolute;
     right:5%;
-    top:50%;
+    top:70%;
     transform: translateY(-50%);
     font-size: 2.5rem;
     display:block;
-    max-width: 70%;
+    width: 70%;
+    white-space: nowrap;
+    overflow: hidden;
+    background-color: transparent;
+    border:none;
+    opacity:0.8;
+    text-align: right;
 }
+
 
 .current-op{
     display:none;
@@ -84,7 +94,6 @@ body, html{
 .keyboard-2{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 55px 55px 55px 55px 55px;
     
     gap:10px;
     width:100%;
@@ -131,12 +140,10 @@ body, html{
     list-style: none;
     flex-wrap: wrap;
     flex-direction: column;
-    
+
 }
 
-.entire-history > li{
-    
-}
+
 .entire-history.active{
     display:block;
     position: absolute;
@@ -150,4 +157,65 @@ body, html{
 
 .clock.active{
     display:block;
+}
+
+
+.deg{
+    color:black;
+    padding-right:5px;
+}
+
+.rad{
+    padding-left:5px;
+    color:black;
+}
+
+.deg.active, 
+.rad.active{
+    color:blue;
+}
+
+@media only screen and (max-width:768px){
+    .calculator{
+        width:100vw;
+        height:100vh;
+        border-radius: 0;
+    }
+
+    .screen{
+        width:95%;
+    }
+   .keyboard-1, 
+   .keyboard-2{
+    gap:4px;
+   }
+
+   .keyboard-1 > div{
+    width:60px;
+    height:60px;
+   }
+
+   .keyboard-2 > div{
+    width:45px;
+    height:60px;
+
+   }
+
+   .keyboard-2{
+    margin-left:-12px;
+   }
+
+   .input{
+    gap:0;
+    width:95%;
+   }
+
+   #Ans{
+    grid-column: span 2;
+    width:124px;
+   }
+
+   #angle-unit{
+    width:124px;
+   }
 }
