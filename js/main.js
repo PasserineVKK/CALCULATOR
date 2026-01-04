@@ -86,10 +86,16 @@ function insertAtCaret(input, text) {
     input.setSelectionRange(newPos, newPos);
 }
 
-document.addEventListener('mousedown',(e)=>{
+document.addEventListener('click',(e)=>{
     e.stopPropagation();
     onInputBlock.focus();
 })
+
+
+document.addEventListener('keydown',(e)=>{
+    e.stopPropagation();
+    onInputBlock.focus();
+}) 
 
 calculatorBlock.addEventListener('click', (e)=>{
     e.stopPropagation();
