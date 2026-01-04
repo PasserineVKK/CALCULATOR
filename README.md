@@ -67,15 +67,15 @@ This approach ensures predictable behavior, proper operator precedence, and easi
 
 ## Project Structure
 
-calculator-project/
-├── index.html
-├── css/
-│   └── styleindex.css
-├── js/
-│   ├── main.js   # UI logic & event handling
-│   └── calc.js   # Expression parsing & calculation logic
-├── assets/
-└── README.md
+- calculator-project/
+- ├── index.html
+- ├── css/
+- │   └── styleindex.css
+- ├── js/
+- │   ├── main.js   # UI logic & event handling
+- │   └── calc.js   # Expression parsing & calculation logic
+- ├── assets/
+- └── README.md
 
 
 --- 
