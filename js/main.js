@@ -85,6 +85,9 @@ function insertAtCaret(input, text) {
 
     const newPos = start + text.length;
     input.setSelectionRange(newPos, newPos);
+    if (/Android|iPhone|iPad/i.test(navigator.userAgent)) {
+        onInputBlock.blur();
+    }
 }
 
 document.addEventListener('click',(e)=>{
@@ -156,6 +159,9 @@ var DESign = document.querySelector('#delete');
 DESign.addEventListener('click', () => {
     onInputBlock.focus();
     document.execCommand('delete');
+    if (/Android|iPhone|iPad/i.test(navigator.userAgent)) {
+        onInputBlock.blur();
+    }
     inputForCalc = onInputBlock.value;
 });
 
@@ -295,8 +301,4 @@ angleUnit.addEventListener('click', (e)=>{
 
 });
 
-onInputBlock.addEventListener('focus', () => {
-  if (/Android|iPhone|iPad/i.test(navigator.userAgent)) {
-    onInputBlock.blur();
-  }
-});
+

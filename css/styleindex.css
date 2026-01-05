@@ -186,6 +186,14 @@ body, html{
     .current-op.active{
         width:90%;
     }
+
+    .current-op.active::before{
+        width:90%;
+        color:white;
+        width:100px;
+        height:100px;
+        content:"xxxx";
+    }
     .screen{
         width:95%;
     }
