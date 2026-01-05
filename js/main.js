@@ -61,8 +61,9 @@ var machineReadable = function(str){
             .replace(/(mod)/g, '%')
             .replace(/(√)/g,'sqrt');
 }
-
-
+var numberRound = function(number){
+    return Math.round(number*10000000000)/10000000000;
+}
 var onInputBlock = document.querySelector('.current-op');
 
 var calculatorBlock = document.querySelector('.calculator');
@@ -128,7 +129,7 @@ var equalSign = document.querySelector('#equal');
 equalSign.addEventListener('click', (e)=>{
          e.stopPropagation();
         var input = onInputBlock.value;
-        const result = calculator(machineReadable(inputForCalc), Ans, radFlag);
+        const result = numberRound(calculator(machineReadable(inputForCalc), Ans, radFlag));
 
         if (!isNaN(Number.parseFloat(result))){
             
@@ -172,6 +173,9 @@ const supportKeys = {
     ')':')',
     '.':'.',
     '%':'%',
+    'x':'x',
+    ':':':',
+    '^':'^'
     
 }
 
@@ -189,7 +193,8 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
         var input = onInputBlock.value;
         
-        const result = calculator(machineReadable(inputForCalc), Ans, radFlag);
+        const result = numberRound(calculator(machineReadable(inputForCalc), Ans, radFlag));
+        
 
         if (!isNaN(Number.parseFloat(result))){
             
