@@ -183,6 +183,9 @@ body, html{
         border-radius: 0;
     }
 
+    .current-op.active{
+        width:80%;
+    }
     .screen{
         width:95%;
     }
