@@ -293,4 +293,10 @@ angleUnit.addEventListener('click', (e)=>{
     console.log(radFlag);
 
 
-})
+});
+
+onInputBlock.addEventListener('focus', () => {
+  if (/Android|iPhone|iPad/i.test(navigator.userAgent)) {
+    onInputBlock.blur();
+  }
+});
