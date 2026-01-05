@@ -123,9 +123,7 @@ calculatorBlock.addEventListener('click', (e)=>{
         var keyConst = key.dataset.const;
         insertAtCaret(onInputBlock, operations[keyConst]);
     }
-     if (/Android|iPhone|iPad/i.test(navigator.userAgent)) {
-        onInputBlock.blur();
-    }
+     
     inputForCalc = onInputBlock.value;
 });
 
