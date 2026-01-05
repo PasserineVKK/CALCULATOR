@@ -56,7 +56,7 @@ var machineReadable = function(str){
     return str.replace(/(π)/g, 'pi()')
             .replace(/(e)/g, 'e()')
             .replace(/x/g,'*')
-            .replace(/%/g, '/100')
+            .replace(/%/g, '*0.01')
             .replace(/:/g,'\/')
             .replace(/(mod)/g, '%')
             .replace(/(√)/g,'sqrt');
@@ -171,7 +171,7 @@ const supportKeys = {
     '(':'(',
     ')':')',
     '.':'.',
-    'm':'%',
+    '%':'%',
     
 }
 
