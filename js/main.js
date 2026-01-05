@@ -102,8 +102,10 @@ calculatorBlock.addEventListener('click', (e)=>{
     e.stopPropagation();
 
     if (clearFlag){
-        onInputBlock.value = '';
-        inputForCalc = '';
+        if (e.target !== DESign){
+            onInputBlock.value = '';
+            inputForCalc = '';
+        }
         clearFlag = false;
     }
 

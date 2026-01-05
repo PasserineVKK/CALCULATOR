@@ -187,22 +187,28 @@ body, html{
     }
    .keyboard-1, 
    .keyboard-2{
-    gap:4px;
+    gap:0px;
+   
    }
 
    .keyboard-1 > div{
-    width:60px;
+    width:54px;
     height:60px;
    }
 
    .keyboard-2 > div{
-    width:45px;
+    width:50px;
     height:60px;
 
    }
 
+   .keyboard-1{
+    gap:1px;
+    flex:1;
+   }
    .keyboard-2{
-    margin-left:-12px;
+    margin-left:-18px;
+    flex:1.25;
    }
 
    .input{
@@ -212,10 +218,11 @@ body, html{
 
    #Ans{
     grid-column: span 2;
-    width:124px;
+    width:110px;
    }
 
    #angle-unit{
-    width:124px;
+    width:110px;
    }
+
 }
