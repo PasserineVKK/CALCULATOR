@@ -85,9 +85,7 @@ function insertAtCaret(input, text) {
 
     const newPos = start + text.length;
     input.setSelectionRange(newPos, newPos);
-    if (/Android|iPhone|iPad/i.test(navigator.userAgent)) {
-        onInputBlock.blur();
-    }
+   
 }
 
 document.addEventListener('click',(e)=>{
@@ -125,7 +123,9 @@ calculatorBlock.addEventListener('click', (e)=>{
         var keyConst = key.dataset.const;
         insertAtCaret(onInputBlock, operations[keyConst]);
     }
-
+     if (/Android|iPhone|iPad/i.test(navigator.userAgent)) {
+        onInputBlock.blur();
+    }
     inputForCalc = onInputBlock.value;
 });
 
@@ -279,7 +279,7 @@ historyBlock.addEventListener('click',(e)=>{
     
 });
 
-var changeBlock = document.querySelector('.changeable-text');
+
 onInputBlock.addEventListener('click', (e)=>{
     e.stopPropagation();
     
