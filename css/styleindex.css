@@ -175,7 +175,8 @@ body, html{
     color:blue;
 }
 
-@media only screen and (max-width:435px){
+
+@media only screen and (max-width:480px){
     .calculator{
         width:100vw;
         height:100vh;
@@ -192,12 +193,12 @@ body, html{
    }
 
    .keyboard-1 > div{
-    width:54px;
+    width:95%;
     height:60px;
    }
 
    .keyboard-2 > div{
-    width:50px;
+    width:95%;
     height:60px;
 
    }
@@ -218,11 +219,16 @@ body, html{
 
    #Ans{
     grid-column: span 2;
-    width:110px;
+    width:98%;
+    font-family:monospace;
    }
 
    #angle-unit{
-    width:110px;
+    width:98%;
    }
 
+   .number{
+    color:black;
+   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+   }
 }
